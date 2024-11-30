@@ -28,10 +28,22 @@ const Game = () => {
   const winner = calculateWinner(current);
 
   return (
-    <div>
-      <h1>Tic-Tac-Toe Game</h1>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#add8e6", // Light blue background color
+        padding: "20px",
+      }}
+    >
+      <h1 style={{ textAlign: "center", backgroundColor: "#4682b4", color: "#fff", padding: "10px 20px", borderRadius: "5px" }}>
+        Tic-Tac-Toe Game
+      </h1>
       <Board squares={current} onClick={handleClick} />
-      <div>
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
         {winner ? (
           <h2>Winner: {winner}</h2>
         ) : (
@@ -39,17 +51,36 @@ const Game = () => {
         )}
       </div>
       <div>
-        <h2>Game History</h2>
-        <ol>
-          {history.map((step, move) => (
-            <li key={move}>
-              <button onClick={() => jumpTo(move)}>
-                {move ? `Go to move #${move}` : "Go to game start"}
-              </button>
-            </li>
-          ))}
-        </ol>
-      </div>
+  <h2 style={{ textAlign: "center" }}>Game History</h2>
+  <ol
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(3, 1fr)", // 3 columns
+      gap: "10px", // Space between items
+      listStyleType: "none", // Remove default list styles
+      padding: "0",
+    }}
+  >
+    {history.map((step, move) => (
+      <li key={move} style={{ textAlign: "center" }}>
+        <button
+          style={{
+            padding: "10px",
+            backgroundColor: "#4682b4",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={() => jumpTo(move)}
+        >
+          {move ? `Move #${move}` : "Start"}
+        </button>
+      </li>
+    ))}
+  </ol>
+</div>
+
     </div>
   );
 };
