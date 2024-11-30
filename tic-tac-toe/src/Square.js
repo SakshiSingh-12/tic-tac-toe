@@ -8,6 +8,8 @@ const Square = ({ value, onClick }) => {
         width: "100px",
         height: "100px",
         fontSize: "2rem",
+        textAlign: "center",
+        alignItems: "center",
         backgroundColor: "lightgray",
       }}
       onClick={onClick}
