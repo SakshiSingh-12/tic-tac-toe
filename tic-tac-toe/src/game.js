@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import Board from "./Board"; // Import the Board component
+import Board from "./Board"; 
 
 const Game = () => {
-  const [history, setHistory] = useState([Array(9).fill(null)]); // Array to hold the history of moves
-  const [stepNumber, setStepNumber] = useState(0); // Keeps track of the current move
-  const [xIsNext, setXIsNext] = useState(true); // Boolean to track whose turn it is (X or O)
+  const [history, setHistory] = useState([Array(9).fill(null)]); 
+  const [stepNumber, setStepNumber] = useState(0); 
+  const [xIsNext, setXIsNext] = useState(true); 
 
   const handleClick = (i) => {
     const historyCopy = history.slice(0, stepNumber + 1);
     const current = historyCopy[historyCopy.length - 1];
     const squares = [...current];
 
-    if (squares[i] || calculateWinner(squares)) return; // Ignore clicks on filled squares or after a winner
+    if (squares[i] || calculateWinner(squares)) return; 
 
     squares[i] = xIsNext ? "X" : "O";
     setHistory(historyCopy.concat([squares]));
@@ -24,11 +24,11 @@ const Game = () => {
     setXIsNext(step % 2 === 0);
   };
 
-  const isBoardFull = (squares) => squares.every((square) => square !== null); // Check if all squares are filled
+  const isBoardFull = (squares) => squares.every((square) => square !== null); 
 
   const current = history[stepNumber];
   const winner = calculateWinner(current);
-  const isDraw = isBoardFull(current) && !winner; // Check for a draw
+  const isDraw = isBoardFull(current) && !winner;
 
   const restartGame = () => {
     setHistory([Array(9).fill(null)]);
@@ -39,10 +39,10 @@ const Game = () => {
   return (
     <div>
       <h1 style={{ textAlign: "center", backgroundColor: "#f0f0f0", padding: "10px" }}>
-        Tic-Tac-Toe Game
+        Tic-Tac-Toe
       </h1>
       <Board squares={current} onClick={handleClick} />
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <div style={{ textAlign: "center", marginTop: "2px" }}>
         {winner ? (
           <h2>Winner: {winner}</h2>
         ) : isDraw ? (
@@ -56,7 +56,7 @@ const Game = () => {
           <h2>Next player: {xIsNext ? "X" : "O"}</h2>
         )}
       </div>
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <div style={{ textAlign: "center", marginTop: "2px" }}>
         <h2>Game History</h2>
         <ol style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
           {history.map((step, move) => (
@@ -72,7 +72,6 @@ const Game = () => {
   );
 };
 
-// Helper function to calculate the winner
 const calculateWinner = (squares) => {
   const lines = [
     [0, 1, 2],

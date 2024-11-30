@@ -1,6 +1,6 @@
 // src/Board.js
 import React from "react";
-import Square from "./Square"; // Import the Square component
+import Square from "./Square";
 
 const Board = ({ squares, onClick }) => {
   const renderSquare = (i) => {
@@ -13,8 +13,8 @@ const Board = ({ squares, onClick }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height
-        backgroundColor: "#f0f8ff", // Light blue background color
+        height: "50vh", 
+        backgroundColor: "#f0f8ff", 
       }}
     >
       <div
@@ -22,10 +22,10 @@ const Board = ({ squares, onClick }) => {
           display: "grid",
           gridTemplateColumns: "repeat(3, 100px)",
           gap: "5px",
-          backgroundColor: "#ffffff", // White background for the board
+          backgroundColor: "#ffffff", 
           padding: "10px",
           borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Optional shadow for a raised effect
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
         {renderSquare(0)}
