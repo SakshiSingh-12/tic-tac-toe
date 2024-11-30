@@ -1,4 +1,3 @@
-// src/Game.js
 import React, { useState } from "react";
 import Board from "./Board"; // Import the Board component
 
@@ -11,7 +10,8 @@ const Game = () => {
     const historyCopy = history.slice(0, stepNumber + 1);
     const current = historyCopy[historyCopy.length - 1];
     const squares = [...current];
-    if (squares[i] || calculateWinner(squares)) return;
+
+    if (squares[i] || calculateWinner(squares)) return; // Ignore clicks on filled squares or after a winner
 
     squares[i] = xIsNext ? "X" : "O";
     setHistory(historyCopy.concat([squares]));
@@ -24,67 +24,55 @@ const Game = () => {
     setXIsNext(step % 2 === 0);
   };
 
+  const isBoardFull = (squares) => squares.every((square) => square !== null); // Check if all squares are filled
+
   const current = history[stepNumber];
   const winner = calculateWinner(current);
+  const isDraw = isBoardFull(current) && !winner; // Check for a draw
+
+  const restartGame = () => {
+    setHistory([Array(9).fill(null)]);
+    setStepNumber(0);
+    setXIsNext(true);
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "#add8e6", // Light blue background color
-        padding: "20px",
-      }}
-    >
-      <h1 style={{ textAlign: "center", backgroundColor: "#4682b4", color: "#fff", padding: "10px 20px", borderRadius: "5px" }}>
+    <div>
+      <h1 style={{ textAlign: "center", backgroundColor: "#f0f0f0", padding: "10px" }}>
         Tic-Tac-Toe Game
       </h1>
       <Board squares={current} onClick={handleClick} />
-      <div style={{ marginTop: "20px", textAlign: "center" }}>
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
         {winner ? (
           <h2>Winner: {winner}</h2>
+        ) : isDraw ? (
+          <div>
+            <h2>Game is a draw!</h2>
+            <button onClick={restartGame} style={{ padding: "10px", cursor: "pointer" }}>
+              Start Again
+            </button>
+          </div>
         ) : (
           <h2>Next player: {xIsNext ? "X" : "O"}</h2>
         )}
       </div>
-      <div>
-  <h2 style={{ textAlign: "center" }}>Game History</h2>
-  <ol
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)", // 3 columns
-      gap: "10px", // Space between items
-      listStyleType: "none", // Remove default list styles
-      padding: "0",
-    }}
-  >
-    {history.map((step, move) => (
-      <li key={move} style={{ textAlign: "center" }}>
-        <button
-          style={{
-            padding: "10px",
-            backgroundColor: "#4682b4",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          onClick={() => jumpTo(move)}
-        >
-          {move ? `Move #${move}` : "Start"}
-        </button>
-      </li>
-    ))}
-  </ol>
-</div>
-
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <h2>Game History</h2>
+        <ol style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+          {history.map((step, move) => (
+            <li key={move} style={{ listStyle: "none", margin: "5px" }}>
+              <button onClick={() => jumpTo(move)} style={{ padding: "5px" }}>
+                {move ? `Go to move #${move}` : "Go to game start"}
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 };
 
+// Helper function to calculate the winner
 const calculateWinner = (squares) => {
   const lines = [
     [0, 1, 2],
