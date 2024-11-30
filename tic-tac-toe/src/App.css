@@ -1,0 +1,21 @@
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+button {
+  font-size: 2rem;
+  width: 100px;
+  height: 100px;
+  background-color: lightblue;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: lightgray;
+}
